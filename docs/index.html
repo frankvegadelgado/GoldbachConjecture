@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <title>Goldbach</title>
+    <style>
+      body {
+        background-color: black;
+        color: white;
+      }
+      code:not(.language-diff) {
+        background-color: white;
+        color: black;
+        display: inline-block;
+      }
+      code.language-diff {
+        background-color: while;
+        color: green;
+      }
+    </style>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js"],
+        "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+        TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+        messageStyle: "none"
+      });
+    </script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"
+    ></script>
+  </head>
+  <body>
+<h1>Lean on Goldbach's conjecture</h1>
+<p><img src="goldbach.png" alt="Goldbach's pyramid"></p>
+<p>This work builds upon <a href="https://hackmd.io/@frankvega/S1ABKPZ1Wl">Geometric Insights into the Goldbach Conjecture</a>.</p>
+<p><strong>Author:</strong> Frank Vega<br>
+<strong>Institution:</strong> Information Physics Institute, Hialeah, FL, USA</p>
+<p><strong>Keywords:</strong> Goldbach conjecture, geometric construction, semiprimes, pigeonhole principle</p>
+<hr>
+<h2>Abstract</h2>
+<p>The Goldbach conjecture states that every even integer greater than 2 is the sum of two primes. We present a computational approach that provides strong evidence for a variant: <strong>every even integer ≥ 8 is the sum of two distinct primes</strong>.</p>
+<p>Our key insight is a geometric equivalence: this is true if and only if for every $N ≥ 4$, there exists an integer $M$ such that the L-shaped region $N^2 - M^2$ between nested squares has a semiprime area $P \cdot Q$, where $P = N - M$ and $Q = N + M$ are both prime.</p>
+<p>Through computational analysis up to $N = 2^{14}$ and application of the pigeonhole principle, we demonstrate this variant holds for all $N ≥ 4$ within our verified range and provide strong theoretical evidence for its general validity.</p>
+<hr>
+<h2>1. Introduction</h2>
+<p>The Goldbach conjecture is one of mathematics' oldest unsolved problems: can every even integer greater than 2 be expressed as the sum of two primes?</p>
+<p>We study a variant that excludes identical primes:</p>
+<blockquote>
+<p><strong>Variant:</strong> Every even integer ≥ 8 is the sum of two <strong>distinct</strong> primes.</p>
+</blockquote>
+<p>This excludes $4 = 2 + 2$ and $6 = 3 + 3$ while preserving the essence of the original conjecture.</p>
+<p>We provide strong computational and theoretical evidence for this variant by connecting it to a surprising geometric property of nested squares.</p>
+<hr>
+<h2>2. The Geometric Connection</h2>
+<h3>Construction</h3>
+<p>Start with a square $S_N$ of side length $N ≥ 4$. Inside it, place a smaller square $S_M$ of side length $M$ (where $1 ≤ M ≤ N-3$) sharing the same corner. The L-shaped region between them has area:</p>
+<p>$$N^2 - M^2 = (N - M)(N + M)$$</p>
+<p>Let $P = N - M$ and $Q = N + M$. Then:</p>
+<ul>
+<li>$P + Q = 2N$ (an even number)</li>
+<li>$P \cdot Q = N^2 - M^2$ (the L-shaped area)</li>
+<li>Both $P$ and $Q$ must be odd (same parity)</li>
+</ul>
+<h3>The Key Equivalence</h3>
+<p><strong>The Goldbach variant is true ⟺ For every $N ≥ 4$, there exists an $M$ making both $P$ and $Q$ prime.</strong></p>
+<p>When this happens, the L-shaped area is a <strong>semiprime</strong> (product of exactly two primes).</p>
+<p><img src="geometric.jpg" alt="Geometric Construction"></p>
+<p><strong>Figure 1:</strong> The L-shaped region between nested squares. For N=5, M=2: P=3 and Q=7 (both prime), giving area 21 = 3×7 and sum 3+7=10.</p>
+<hr>
+<h2>3. Why This Connection Matters</h2>
+<p>For any even number $2N$, finding a Goldbach partition means finding primes $P$ and $Q$ where $P + Q = 2N$.</p>
+<p>Geometrically, this is equivalent to finding an $M$ value such that:</p>
+<ul>
+<li>$P = N - M$ is prime</li>
+<li>$Q = N + M$ is prime</li>
+<li>The L-shaped area $P \cdot Q$ is a semiprime</li>
+</ul>
+<p>This transforms an arithmetic problem into a geometric search.</p>
+<hr>
+<h2>Files and Structure</h2>
+<p>The Lean development is contained in a <strong>single</strong> core file:</p>
+<ul>
+<li><strong><code>GoldbachConjecture.lean</code></strong>
+<ul>
+<li>Introduces the main predicates and structures (even numbers, semiprimes, squares, L‑shapes, the set $D_N$, and the gap function G(N)).</li>
+<li>Encodes the experimental data for G(N) over $4 \le N \le 2^{14}$ (dyadic intervals and minima) and axiomatizes the verified positivity of G(N) and the validity of the Goldbach variant in the tested range.</li>
+<li>Develops the analytic bounds on primes and candidate $M$-values and applies a pigeonhole argument to obtain Goldbach partitions for all relevant $N$.</li>
+<li>Proves that, under the global inequality $|D_N| &gt; (N-3) - \log^{2}(2N)$, every even integer at least 8 admits a representation as a sum of two distinct primes, and derives corollaries such as a geometric Goldbach statement.</li>
+</ul>
+</li>
+</ul>
+<p>No code snippets are shown here; all implementation details are inside the Lean source file.</p>
+<h2>Dependencies and Setup</h2>
+<p>The project is written for <strong>Lean 4</strong> and relies on <strong>mathlib4</strong>, particularly its number theory and analysis components:</p>
+<ul>
+<li>Prime numbers and prime counting (<code>Mathlib.NumberTheory.PrimeCounting</code>)</li>
+<li>Logarithmic and real analysis tools (<code>Mathlib.Analysis.SpecialFunctions.Log.Basic</code>, <code>Mathlib.Data.Real.Basic</code>)</li>
+<li>Basic arithmetic on natural numbers (<code>Mathlib.Data.Nat.Prime.Basic</code>)</li>
+</ul>
+<p>To work with this repository:</p>
+<ul>
+<li>Install Lean 4 and mathlib4 using the standard community toolchain (e.g., <code>elan</code> and <code>lake</code>) with a mathlib-enabled project template.</li>
+<li>Ensure that your <code>lakefile</code> imports mathlib4 so that all <code>Mathlib.*</code> modules used in the source files are available.</li>
+</ul>
+<p>Users are expected to be familiar with the Lean 4 ecosystem and mathlib conventions; the repository does not include special build scripts beyond the usual Lean project setup.</p>
+<h2>Documentation</h2>
+<p>The conceptual and mathematical documentation for this Lean codebase is maintained externally:</p>
+<ul>
+<li>
+<p><strong>HackMD article (rich exposition with inline math):</strong><br>
+“Geometric Insights into the Goldbach Conjecture” – available at</p>
+<p><a href="https://hackmd.io/@frankvega/S1ABKPZ1Wl">https://hackmd.io/@frankvega/S1ABKPZ1Wl</a></p>
+<p>This note explains the geometric framework, the definition of the set $D_N$, the gap function G(N), and the computational strategy, using LaTeX-style mathematics in HackMD.</p>
+</li>
+<li>
+<p><strong>MDPI Preprint (formal write‑up):</strong><br>
+The work is also available as a preprint at</p>
+<p><a href="https://www.preprints.org/manuscript/202511.0701/v3">https://www.preprints.org/manuscript/202511.0701/v3</a></p>
+<p>The preprint presents the full argument, including the equivalence between the geometric construction and the Goldbach variant, the experimental evidence, and the conditional theorem that links the bound on $|D_N|$ to the distinct‑primes Goldbach statement.</p>
+</li>
+</ul>
+<p>These documents are the primary references for understanding the mathematical motivations and theorems formalized in the Lean files.</p>
+</body>
+</html>

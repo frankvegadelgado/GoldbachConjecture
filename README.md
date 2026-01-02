@@ -80,8 +80,8 @@ This transforms an arithmetic problem into a geometric search.
 The Lean development is contained in a **single** core file:
 
 - **`GoldbachConjecture.lean`**  
-  - Introduces the main predicates and structures (even numbers, semiprimes, squares, L‑shapes, the set $D_N$, and the gap function $G(N)$).  
-  - Encodes the experimental data for $G(N)$ over $4 \le N \le 2^{14}$ (dyadic intervals and minima) and axiomatizes the verified positivity of $G(N)$ and the validity of the Goldbach variant in the tested range.  
+  - Introduces the main predicates and structures (even numbers, semiprimes, squares, L‑shapes, the set $D_N$, and the gap function G(N)).  
+  - Encodes the experimental data for G(N) over $4 \le N \le 2^{14}$ (dyadic intervals and minima) and axiomatizes the verified positivity of G(N) and the validity of the Goldbach variant in the tested range.  
   - Develops the analytic bounds on primes and candidate $M$-values and applies a pigeonhole argument to obtain Goldbach partitions for all relevant $N$.  
   - Proves that, under the global inequality $|D_N| > (N-3) - \log^{2}(2N)$, every even integer at least 8 admits a representation as a sum of two distinct primes, and derives corollaries such as a geometric Goldbach statement.
 
@@ -111,7 +111,7 @@ The conceptual and mathematical documentation for this Lean codebase is maintain
   
   [https://hackmd.io/@frankvega/S1ABKPZ1Wl](https://hackmd.io/@frankvega/S1ABKPZ1Wl)
   
-  This note explains the geometric framework, the definition of the set $D_N$, the gap function $G(N)$, and the computational strategy, using LaTeX-style mathematics in HackMD.
+  This note explains the geometric framework, the definition of the set $D_N$, the gap function G(N), and the computational strategy, using LaTeX-style mathematics in HackMD.
 
 - **MDPI Preprint (formal write‑up):**  
   The work is also available as a preprint at  
