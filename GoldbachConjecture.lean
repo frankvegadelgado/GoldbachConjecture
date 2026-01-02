@@ -26,6 +26,8 @@ For exposition and motivation, see:
     https://hackmd.io/@frankvega/S1ABKPZ1Wl
 - MDPI Preprint:
     https://www.preprints.org/manuscript/202511.0701/v3
+- Experimental Results on Goldbach's Conjecture:
+    https://github.com/frankvegadelgado/goldbach
 
 Author: Frank Vega, Information Physics Institute (Hialeah, FL, USA)
 -/
