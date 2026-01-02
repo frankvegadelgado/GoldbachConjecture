@@ -1,0 +1,13 @@
+title: Lean on Goldbach's conjecture
+theme: just-the-docs
+
+url: "https://frankvegadelgado.github.io"
+baseurl: "/GoldbachConjecture"
+
+aux_links:
+  "Repository":
+    - "https://github.com/frankvegadelgado/GoldbachConjecture"
+
+just_the_docs:
+  search_enabled: true
+  heading_anchors: true
