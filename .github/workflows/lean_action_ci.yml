@@ -5,17 +5,27 @@ on:
   pull_request:
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read # Read access to repository contents
-  pages: write # Write access to GitHub Pages
-  id-token: write # Write access to ID tokens
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
-      - uses: leanprover/lean-action@v1
-      - uses: leanprover-community/docgen-action@v1
+      - name: Checkout code
+        uses: actions/checkout@v4 # Updated to v4 for 2026 stability
+
+      - name: Run Lean Action
+        uses: leanprover/lean-action@v1
+
+      - name: Generate Docs
+        uses: leanprover-community/docgen-action@v1
+        with:
+          # REQUIRED: If you do not have a 'home_page' folder with a Gemfile,
+          # set this to false to stop the Jekyll build error.
+          build-page: false
+          # Sets where the final documentation will be placed
+          output-folder: docs

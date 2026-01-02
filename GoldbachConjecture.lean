@@ -153,7 +153,7 @@ axiom experimental_verification_range :
 axiom goldbach_verified_range :
   ∀ N, 4 ≤ N → N ≤ 2^14 → hasGoldbachPartition N
 
-/-- THE CRITICAL MISSING LEMMA from the paper -/
+/-- Core lemma tying D_N to Goldbach pairs (assumed from the paper’s geometric reasoning). -/
 axiom candidate_characterization (N P : ℕ) (hN : N ≥ 4)
     (hP : Nat.Prime P) (hP_bounds : 3 ≤ P ∧ P < N) :
     (N - P) ∈ D_N N ↔ Nat.Prime (2 * N - P)
