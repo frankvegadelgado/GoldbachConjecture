@@ -225,10 +225,8 @@ theorem empirical_dyadic_growth_m4 (N₁ N₂ : ℕ) :
     2^4 ≤ N₁ → N₁ ≤ 2^5 → 2^5 ≤ N₂ → N₂ ≤ 2^6 → G N₁ < G N₂ := by
   sorry
 
--- Assume G is already defined as:
--- def G : ℕ → ℝ := ...
-
-/-- On a dyadic scale `2^m ≥ 25`, the growth lemma at `2^m`
+/--
+On a dyadic scale `2^m ≥ 25`, the growth lemma at `2^m`
 actually forces a uniform lower bound on the whole next dyadic interval
 `[2^(m+1), 2^(m+2)]`. This is the analytic strengthening we need. -/
 lemma G_growth_on_next_dyadic_interval
@@ -438,7 +436,8 @@ theorem candidate_good_implies_goldbach (N P : ℕ) (hN : N ≥ 4)
   use P, 2 * N - P
   refine ⟨hP, hQ, by omega, by omega⟩
 
-/- Single analytic theorem to avoid fragile `linarith` chains
+/--
+Single analytic theorem to avoid fragile `linarith` chains
 
 Instead of a long chain of real-inequality steps, we package the needed
 estimate in one axiom, consistent with the style of the rest of the file.
@@ -470,16 +469,7 @@ prime-counting function `π(x)`, such as those found in:
 
 **Note:** The double condition `N ≥ 17` and `N ≥ 2^10` simplifies to `N ≥ 1024`.
 The first condition `hN17` is likely required by a prerequisite theorem
-(e.g., Rosser & Schoenfeld bounds are valid for `x ≥ 17`).
--/
-
-/-- Analytic chain estimate:
-
-\[
-((\pi(N-1) - 1) : ℝ) > (\log (2N))^2
-\]
-
-for sufficiently large `N`. -/
+(e.g., Rosser & Schoenfeld bounds are valid for `x ≥ 17`). -/
 axiom analytic_chain_bound (N : ℕ) (hN17 : N ≥ 17) (hLarge : N ≥ 2 ^ 10) :
   ((Nat.primeCounting (N - 1) - 1 : ℕ) : ℝ) > (Real.log (2 * N))^2
 
