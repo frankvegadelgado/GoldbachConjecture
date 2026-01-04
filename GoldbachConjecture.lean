@@ -148,12 +148,12 @@ theorem experimental_G_positive :
   · cases h13
 
 /-- For all N in tested range, G(N) > 0 (axiomatized as computational) -/
-axiom experimental_verification_range :
-  ∀ N, 4 ≤ N → N ≤ 2^14 → G N > 0
+theorem experimental_verification_range :
+  ∀ N, 4 ≤ N → N ≤ 2^14 → G N > 0 := sorry
 
 /-- Goldbach holds in computational range (axiomatized) -/
-axiom goldbach_verified_range :
-  ∀ N, 4 ≤ N → N ≤ 2^14 → hasGoldbachPartition N
+theorem goldbach_verified_range :
+  ∀ N, 4 ≤ N → N ≤ 2^14 → hasGoldbachPartition N := sorry
 
 /-- Core lemma tying D_N to Goldbach pairs (assumed from the paper’s geometric reasoning). -/
 theorem candidate_characterization (N P : ℕ) (hN : N ≥ 4)
