@@ -399,8 +399,9 @@ this asymptotic dominance to overcome the specific constant factors involved.
 **Note:** The threshold `N ≥ 2^10` (i.e., 1024) is likely the point where
 computer-verified or explicit calculation confirms the inequality holds.
 -/
-axiom ratio_bound (N : ℕ) (hN : N ≥ 2 ^ 10) :
-    (N : ℝ) / Real.log N > (Real.log (2 * N))^2
+theorem ratio_bound (N : ℕ) (hN : N ≥ 2 ^ 10) :
+    (N : ℝ) / Real.log N > (Real.log (2 * N))^2 := by
+  sorry
 
 /-- Number of candidates -/
 noncomputable def numCandidates (N : ℕ) : ℕ :=
@@ -422,9 +423,10 @@ of a prime with the stated property.
 - Leurechon, J. (1622). *Selectæ Propositiones*. Contains the earliest known
   written statement of the principle.
 -/
-axiom pigeonhole_principle (N : ℕ) (hN : N ≥ 4)
+theorem pigeonhole_principle (N : ℕ) (hN : N ≥ 4)
     (h_exceed : (numCandidates N : ℝ) > (N - 3 : ℝ) - (card_D_N N : ℝ)) :
-    ∃ P, Nat.Prime P ∧ 3 ≤ P ∧ P < N ∧ (N - P) ∈ D_N N
+    ∃ P, Nat.Prime P ∧ 3 ≤ P ∧ P < N ∧ (N - P) ∈ D_N N := by
+  sorry
 
 /-- CORRECTED: If candidate is good, Goldbach holds -/
 theorem candidate_good_implies_goldbach (N P : ℕ) (hN : N ≥ 4)
