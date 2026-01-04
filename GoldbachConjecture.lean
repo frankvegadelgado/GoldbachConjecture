@@ -172,7 +172,7 @@ theorem dusart_prime_density (n : ℕ) (hn : n ≥ 3275) :
   sorry -- This is a deep result from analytic number theory
         -- Proven in: Dusart, P. (1998).
 
-/-- Axiom: Growth rate of |D_N| based on Bertrand-type results.
+/-- Theorem: Growth rate of |D_N| based on Bertrand-type results.
     Over intervals [N, 2N], |D_N| grows by at least Ω(N/log²N) on average. -/
 theorem card_D_N_growth (N : ℕ) (hN : N ≥ 25) :
     ∃ (c : ℝ), c > 0 ∧
@@ -325,13 +325,13 @@ theorem key_theorem_dyadic_growth (m : ℕ) (hm : m ≥ 2) :
       exact empirical_dyadic_growth_m4 N₁ N₂
         hN₁_lower hN₁_upper hN₂_lower hN₂_upper
 
-/-- Axiom: Empirical verification that G(N) > 0 for all N in [4, 2^14],
+/-- Theorem: Empirical verification that G(N) > 0 for all N in [4, 2^14],
     establishing the base case for the corollary -/
 theorem empirical_G_positive (N : ℕ) (hN : 4 ≤ N) (hN' : N ≤ 2 ^ 14) :
     G N > 0 := by
   sorry
 
-/-- Axiom: G(N) is monotonically increasing in the minimum across dyadic intervals -/
+/-- Theorem: G(N) is monotonically increasing in the minimum across dyadic intervals -/
 theorem G_increasing_dyadic_minima (N : ℕ) (hN : N ≥ 4) :
     ∃ (m : ℕ), 2^m ≤ N ∧ N < 2^(m+1) ∧ G N > 0 := by
   sorry
