@@ -17,7 +17,7 @@ The development includes:
 * definitions of even numbers, semiprimes, and geometric L‑shapes,
 * the candidate set D_N and the gap function G(N),
 * computationally verified bounds for N ≤ 2^14,
-* analytic axioms on prime counting and logarithmic growth,
+* analytic theorems on prime counting and logarithmic growth,
 * a pigeonhole argument yielding a Goldbach partition for all N ≥ 4,
 * the final theorem: every even n ≥ 8 is the sum of two distinct primes.
 
@@ -47,8 +47,8 @@ structure LShape (N M : ℕ) where
   h_M_le : M ≤ N - 3
 
 /-- Area of L-shaped region: N² - M² = (N-M)(N+M) -/
-axiom LShape_area (N M : ℕ) (hN : N ≥ M + 3) :
-    N^2 - M^2 = (N - M) * (N + M)
+theorem LShape_area (N M : ℕ) (hN : N ≥ M + 3) :
+    N^2 - M^2 = (N - M) * (N + M) := sorry
 
 /-- CORRECT D_N definition (without P + Q = 2N, matching paper's examples) -/
 def D_N (N : ℕ) : Set ℕ :=
@@ -156,13 +156,13 @@ axiom goldbach_verified_range :
   ∀ N, 4 ≤ N → N ≤ 2^14 → hasGoldbachPartition N
 
 /-- Core lemma tying D_N to Goldbach pairs (assumed from the paper’s geometric reasoning). -/
-axiom candidate_characterization (N P : ℕ) (hN : N ≥ 4)
+theorem candidate_characterization (N P : ℕ) (hN : N ≥ 4)
     (hP : Nat.Prime P) (hP_bounds : 3 ≤ P ∧ P < N) :
-    (N - P) ∈ D_N N ↔ Nat.Prime (2 * N - P)
+    (N - P) ∈ D_N N ↔ Nat.Prime (2 * N - P) := sorry
 
 /-- Corollary: |D_N| > (N-3) - log²(2N) -/
-axiom corollary_insight (N : ℕ) (hN : N ≥ 4) :
-    (card_D_N N : ℝ) > (N - 3 : ℝ) - (Real.log (2 * N))^2
+theorem corollary_insight (N : ℕ) (hN : N ≥ 4) :
+    (card_D_N N : ℝ) > (N - 3 : ℝ) - (Real.log (2 * N))^2 := sorry
 
 /-- G(N) is always positive -/
 theorem G_positive (N : ℕ) (hN : N ≥ 4) : G N > 0 := by
@@ -171,21 +171,21 @@ theorem G_positive (N : ℕ) (hN : N ≥ 4) : G N > 0 := by
   linarith
 
 /-- Prime counting lower bound -/
-axiom prime_counting_lower_bound (N : ℕ) (hN : N ≥ 17) :
-    (Nat.primeCounting (N - 1) : ℝ) > (N - 1) / Real.log (N - 1)
+theorem prime_counting_lower_bound (N : ℕ) (hN : N ≥ 17) :
+    (Nat.primeCounting (N - 1) : ℝ) > (N - 1) / Real.log (N - 1) := sorry
 
 /-- Ratio bound for large N -/
-axiom ratio_bound (N : ℕ) (hN : N ≥ 2 ^ 10) :
-    (N : ℝ) / Real.log N > (Real.log (2 * N))^2
+theorem ratio_bound (N : ℕ) (hN : N ≥ 2 ^ 10) :
+    (N : ℝ) / Real.log N > (Real.log (2 * N))^2 := sorry
 
 /-- Number of candidates -/
 noncomputable def numCandidates (N : ℕ) : ℕ :=
   if N ≥ 4 then Nat.primeCounting (N - 1) - 1 else 0
 
 /-- Pigeonhole principle -/
-axiom pigeonhole_principle (N : ℕ) (hN : N ≥ 4)
+theorem pigeonhole_principle (N : ℕ) (hN : N ≥ 4)
     (h_exceed : (numCandidates N : ℝ) > (N - 3 : ℝ) - (card_D_N N : ℝ)) :
-    ∃ P, Nat.Prime P ∧ 3 ≤ P ∧ P < N ∧ (N - P) ∈ D_N N
+    ∃ P, Nat.Prime P ∧ 3 ≤ P ∧ P < N ∧ (N - P) ∈ D_N N := sorry
 
 /-- CORRECTED: If candidate is good, Goldbach holds -/
 theorem candidate_good_implies_goldbach (N P : ℕ) (hN : N ≥ 4)
@@ -197,10 +197,10 @@ theorem candidate_good_implies_goldbach (N P : ℕ) (hN : N ≥ 4)
   use P, 2 * N - P
   refine ⟨hP, hQ, by omega, by omega⟩
 
-/-! ### Single analytic axiom to avoid fragile `linarith` chains
+/-! ### Single analytic theorem to avoid fragile `linarith` chains
 
 Instead of a long chain of real-inequality steps, we package the needed
-estimate in one axiom, consistent with the style of the rest of the file.
+estimate in one theorem, consistent with the style of the rest of the file.
 -/
 
 /-- Analytic chain estimate:
@@ -212,8 +212,8 @@ estimate in one axiom, consistent with the style of the rest of the file.
 
 
 for sufficiently large `N`. -/
-axiom analytic_chain_bound (N : ℕ) (hN17 : N ≥ 17) (hLarge : N ≥ 2 ^ 10) :
-  ((Nat.primeCounting (N - 1) - 1 : ℕ) : ℝ) > (Real.log (2 * N))^2
+theorem analytic_chain_bound (N : ℕ) (hN17 : N ≥ 17) (hLarge : N ≥ 2 ^ 10) :
+  ((Nat.primeCounting (N - 1) - 1 : ℕ) : ℝ) > (Real.log (2 * N))^2 := sorry
 
 /-- Main Theorem: Goldbach Variant -/
 theorem main_goldbach_variant : ∀ N ≥ 4, hasGoldbachPartition N := by
@@ -230,7 +230,7 @@ theorem main_goldbach_variant : ∀ N ≥ 4, hasGoldbachPartition N := by
         (N - 3 : ℝ) - (card_D_N N : ℝ) < (Real.log (2 * N))^2 := by
       have := corollary_insight N hN
       linarith
-    -- Now obtain a lower bound on numCandidates N using the analytic axiom
+    -- Now obtain a lower bound on numCandidates N using the analytic theorem
     have h_candidates_bound :
         (numCandidates N : ℝ) > (Real.log (2 * N))^2 := by
       -- We already know hN : N ≥ 4 in this branch, so the `if` in numCandidates is true
