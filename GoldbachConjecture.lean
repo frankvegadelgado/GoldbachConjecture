@@ -3,6 +3,7 @@ import Mathlib.Data.Nat.Factorization.Basic
 import Mathlib.NumberTheory.PrimeCounting
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Data.Real.Basic
+import Mathlib
 
 /-! # Lean on Goldbach's conjecture
 
@@ -399,9 +400,35 @@ this asymptotic dominance to overcome the specific constant factors involved.
 **Note:** The threshold `N ≥ 2^10` (i.e., 1024) is likely the point where
 computer-verified or explicit calculation confirms the inequality holds.
 -/
+-- Credit: `@Bbbbbbbbba` (Zulip thread "Formalizing Goldbach Conjecture Basics - Seeking Feedback", 2026-01-07)
 theorem ratio_bound (N : ℕ) (hN : N ≥ 2 ^ 10) :
     (N : ℝ) / Real.log N > (Real.log (2 * N))^2 := by
-  sorry
+  rify at hN
+  have h_nonneg : 0 ≤ (N : ℝ) := Nat.cast_nonneg' N
+  have h_pos : 0 < (N : ℝ) := lt_of_lt_of_le (by norm_num) hN
+  apply (lt_div_iff₀ ((Real.log_pos_iff h_nonneg).mpr (lt_of_lt_of_le (by norm_num) hN))).mpr
+  have h1 : Real.log (2 * N) ^ 2 * Real.log N ≤ Real.log (2 * N) ^ 3 := by
+    rw [pow_succ (Real.log (2 * N)) 2]
+    refine mul_le_mul_of_nonneg_left ?_ (sq_nonneg (Real.log (2 * N)))
+    exact Real.log_le_log h_pos (le_mul_of_one_le_left h_nonneg one_le_two)
+  apply lt_of_le_of_lt h1
+  let x := (N : ℝ) ^ (3 : ℝ)⁻¹
+  have hx : x ^ 3 = N := Eq.trans (Eq.symm (Real.rpow_ofNat x 3))
+    (Real.rpow_inv_rpow h_nonneg (NeZero.ne 3))
+  nth_rewrite 2 [← hx]
+  apply (Odd.pow_lt_pow (Nat.odd_iff.mpr rfl)).mpr
+  apply Real.exp_lt_exp.mp
+  rw [Real.exp_log ((mul_pos_iff_of_pos_left zero_lt_two).mpr h_pos)]
+  -- ⊢ 2 * ↑N < Real.exp x
+  refine lt_of_lt_of_le ?_ (Real.pow_div_factorial_le_exp x (Real.rpow_nonneg h_nonneg 3⁻¹) 9)
+  -- ⊢ 2 * ↑N < x ^ 9 / ↑(Nat.factorial 9)
+  have h2 : x ^ 9 = N * (N * N) := by grind
+  rw [h2]
+  apply (lt_div_iff₀ (by norm_num)).mpr
+  rw [mul_comm 2, mul_assoc]
+  refine (mul_lt_mul_iff_of_pos_left h_pos).mpr ?_
+  refine lt_of_lt_of_le ?_ (mul_le_mul hN hN (by norm_num) h_nonneg)
+  norm_num
 
 /-- Number of candidates -/
 noncomputable def numCandidates (N : ℕ) : ℕ :=
