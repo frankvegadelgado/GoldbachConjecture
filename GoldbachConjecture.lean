@@ -372,35 +372,15 @@ theorem G_positive (N : ℕ) (hN : N ≥ 4) : G N > 0 := by
     The function π(x) counts the number of primes ≤ x. -/
 axiom prime_counting_lower_bound (N : ℕ) (hN : N ≥ 17) :
     (Nat.primeCounting (N - 1) : ℝ) > (N - 1) / Real.log (N - 1)
+/-- Ratio bound: for N ≥ 2^10, N/log(N) > (log(2N))^2
 
-/--
-Ratio bound for large N: For N ≥ 1024, it holds that `N / log(N) > (log(2N))^2`.
+    This inequality provides a crucial link between the growth of the
+    prime-counting function and logarithmic functions, facilitating
+    the pigeonhole argument in the main theorem.
 
-This inequality is a specific technical lemma likely derived from explicit estimates
-for functions related to prime numbers. It is not a direct consequence of the
-Prime Number Theorem (which states the asymptotic equivalence `π(N) ~ N/log(N)`),
-but can be established using explicit bounds from the literature.
-
-**Mathematical Justification:**
-For sufficiently large N, the left-hand side `N / log(N)` grows faster than any
-power of `log(N)`. The stated inequality asserts that `N` is large enough for
-this asymptotic dominance to overcome the specific constant factors involved.
-
-**Proof Context and References:**
-- The inequality is likely proven by combining standard bounds for logarithmic
-  functions and polynomial growth.
-- For a foundational reference on asymptotic behavior and prime number estimates,
-  see the Prime Number Theorem.
-- For a compendium of explicit bounds on functions of primes which are often
-  used to prove such lemmas, see the work of Rosser and Schoenfeld (1962),
-  "Approximate formulas for some functions of prime numbers".
-- This specific formulation appears to be original to the formalization project
-  using it as a lemma.
-
-**Note:** The threshold `N ≥ 2^10` (i.e., 1024) is likely the point where
-computer-verified or explicit calculation confirms the inequality holds.
--/
--- Credit: `@Bbbbbbbbba` (Zulip thread "Formalizing Goldbach Conjecture Basics - Seeking Feedback", 2026-01-07)
+    The proof leverages properties of exponential and logarithmic
+    functions, along with inequalities involving powers and factorials.
+-- Credit: `@Bbbbbbbbba` (Zulip thread "Formalizing Goldbach Conjecture Basics - Seeking Feedback", 2026-01-07) -/
 theorem ratio_bound (N : ℕ) (hN : N ≥ 2 ^ 10) :
     (N : ℝ) / Real.log N > (Real.log (2 * N))^2 := by
   rify at hN
