@@ -2,8 +2,10 @@ import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.Data.Nat.Factorization.Basic
 import Mathlib.NumberTheory.PrimeCounting
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
-import Mathlib.Data.Real.Basic
-import Mathlib
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Mathlib.Analysis.SpecialFunctions.Exp
+import Mathlib.Data.Nat.Factorial.Basic
+import Mathlib.Tactic
 
 /-! # Lean on Goldbach's conjecture
 
