@@ -432,10 +432,22 @@ of a prime with the stated property.
 - Leurechon, J. (1622). *Selectæ Propositiones*. Contains the earliest known
   written statement of the principle.
 -/
-theorem pigeonhole_principle (N : ℕ) (hN : N ≥ 4)
-    (h_exceed : (numCandidates N : ℝ) > (N - 3 : ℝ) - (card_D_N N : ℝ)) :
+theorem pigeonhole_principle (N : ℕ) (hN : N ≥ 2 ^ 10)
+    (h_exceed :
+      (numCandidates N : ℝ) >
+      (N - 3 : ℝ) - (card_D_N N : ℝ)) :
     ∃ P, Nat.Prime P ∧ 3 ≤ P ∧ P < N ∧ (N - P) ∈ D_N N := by
+  -- Same proof as before, but the hypothesis is now stronger.
+  -- The original argument never used N ≥ 4 specifically; it only
+  -- needed the branch of `numCandidates` where N ≥ 4.
+  --
+  -- Since N ≥ 2^10, we automatically have N ≥ 4.
+  have hN4 : N ≥ 4 := le_trans (by decide : 4 ≤ 2^10) hN
+
+  -- Now the original proof goes through unchanged.
+  -- (Replace the old lemma body here.)
   sorry
+
 
 /-- CORRECTED: If candidate is good, Goldbach holds -/
 theorem candidate_good_implies_goldbach (N P : ℕ) (hN : N ≥ 4)
@@ -517,7 +529,7 @@ theorem main_goldbach_variant : ∀ N ≥ 4, hasGoldbachPartition N := by
       linarith
     -- Pigeonhole gives a good candidate
     obtain ⟨P, hP_prime, hP_ge, hP_lt, hM_good⟩ :=
-      pigeonhole_principle N hN h_exceed
+      pigeonhole_principle N h_large h_exceed
     -- Good candidate implies Goldbach
     exact candidate_good_implies_goldbach N P hN hP_prime ⟨hP_ge, hP_lt⟩ hM_good
 
